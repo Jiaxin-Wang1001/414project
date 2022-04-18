@@ -201,10 +201,7 @@ def train_net(cfg):
             else:
                 generated_volumes = torch.mean(generated_volumes, dim=1)
             encoder_loss1 = bce_loss(generated_volumes, ground_truth_volumes) * 10 
-            print("+++++++++++++++++++++++++++++++++++++++")
-            print(generated_projections.shape)
-            print(projections_images.shape)
-            print("---------------------------------------")
+
             encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
             encoder_loss = encoder_loss1 + encoder_loss2
 
@@ -243,8 +240,8 @@ def train_net(cfg):
             batch_time.update(time() - batch_end_time)
             batch_end_time = time()
             logging.info(
-                '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) EDLoss = %.4f RLoss = %.4f' %
-                (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val,
+                '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f' %
+                (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val, encoder_loss1.item, encoder_loss2.item,
                  encoder_loss.item(), refiner_loss.item()))
 
         # Adjust learning rate
