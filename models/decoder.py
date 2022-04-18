@@ -65,9 +65,12 @@ class Decoder(torch.nn.Module):
             gen_volumes.append(torch.squeeze(gen_volume, dim=1))
             raw_features.append(raw_feature)
 
-            xprojection = torch.squeeze(self.layerx(gen_volume))
-            yprojection = torch.squeeze(self.layery(gen_volume))
-            zprojection = torch.squeeze(self.layerz(gen_volume))
+            xprojection = torch.squeeze(self.layerx(gen_volume), dim=2)
+            xprojection = torch.squeze(xprojection, dim=1)
+            yprojection = torch.squeeze(self.layery(gen_volume), dim=3)
+            yprojection = torch.squeze(yprojection, dim=1)
+            zprojection = torch.squeeze(self.layerz(gen_volume), dim=4)
+            zprojection = torch.squeze(zprojection, dim=1)
             projections = [xprojection, yprojection, zprojection]
         projections = torch.stack(projections, dim=0).contiguous()
 
