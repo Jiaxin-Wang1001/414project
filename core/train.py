@@ -241,7 +241,7 @@ def train_net(cfg):
             batch_end_time = time()
             logging.info(
                 '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f' %
-                (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val, encoder_loss1.item, encoder_loss2.item,
+                (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val, encoder_loss1.item(), encoder_loss2.item(),
                  encoder_loss.item(), refiner_loss.item()))
 
         # Adjust learning rate
