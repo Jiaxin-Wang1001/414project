@@ -151,6 +151,7 @@ class ShapeNetDataLoader:
             for image_idx in rendering_image_indexes:
                 img_file_path = self.rendering_image_path_template % (taxonomy_folder_name, sample_name, image_idx)
                 if not os.path.exists(img_file_path):
+                    print(img_file_path)
                     continue
 
                 rendering_images_file_path.append(img_file_path)
