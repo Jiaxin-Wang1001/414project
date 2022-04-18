@@ -12,7 +12,7 @@ cfg                                         = __C
 #
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
-__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = './datasets/superLite.json'
+__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = './datasets/ShapeNetLite.json'
 # __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
 __C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/Shareddrives/CMPUT_414/ShapeNetRendering/%s/%s/rendering/%02d.png'
 # __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
@@ -72,8 +72,8 @@ __C.DIR.RANDOM_BG_PATH                      = '/home/hzxie/Datasets/SUN2012/JPEG
 __C.NETWORK                                 = edict()
 __C.NETWORK.LEAKY_VALUE                     = .2
 __C.NETWORK.TCONV_USE_BIAS                  = False
-__C.NETWORK.USE_REFINER                     = True
-__C.NETWORK.USE_MERGER                      = True
+__C.NETWORK.USE_REFINER                     = False
+__C.NETWORK.USE_MERGER                      = False
 
 #
 # Training
