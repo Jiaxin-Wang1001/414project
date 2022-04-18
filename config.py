@@ -9,12 +9,12 @@ cfg                                         = __C
 
 #
 # Dataset Config
-#
+#/content/drive/MyDrive/ShapeNetRendering
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
 __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = './datasets/ShapeNetLite.json'
 # __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
-__C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/Shareddrives/CMPUT_414/ShapeNetRendering/%s/%s/rendering/%02d.png'
+__C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/Mydrive/ShapeNetRendering/%s/%s/rendering/%02d.png'
 # __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
 __C.DATASETS.SHAPENET.VOXEL_PATH            = '/content/drive/Shareddrives/CMPUT_414/ShapeNetVox32/%s/%s/model.binvox'
 __C.DATASETS.SHAPENET.PROJECTION_PATH       = '/content/drive/Shareddrives/CMPUT_414/ShapeNetVox32/%s/%s/%01d.png'
