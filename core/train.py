@@ -190,7 +190,7 @@ def train_net(cfg):
             # Get data from data loader
             rendering_images = utils.helpers.var_or_cuda(rendering_images)
             ground_truth_volumes = utils.helpers.var_or_cuda(ground_truth_volumes)
-            projections_images = utils.network_utils.var_or_cuda(projections_images)
+            projections_images = utils.helpers.var_or_cuda(projections_images)
 
             # Train the encoder, decoder, refiner, and merger
             image_features = encoder(rendering_images)
