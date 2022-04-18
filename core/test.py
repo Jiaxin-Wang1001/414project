@@ -96,7 +96,7 @@ def test_net(cfg,
     refiner.eval()
     merger.eval()
 
-    for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume) in enumerate(test_data_loader):
+    for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
         sample_name = sample_name[0]
 
@@ -104,16 +104,19 @@ def test_net(cfg,
             # Get data from data loader
             rendering_images = utils.helpers.var_or_cuda(rendering_images)
             ground_truth_volume = utils.helpers.var_or_cuda(ground_truth_volume)
+            projections_images = utils.network_utils.var_or_cuda(projections_images)
 
             # Test the encoder, decoder, refiner and merger
             image_features = encoder(rendering_images)
-            raw_features, generated_volume = decoder(image_features)
+            raw_features, generated_volume, generated_projections = decoder(image_features)
 
             if cfg.NETWORK.USE_MERGER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_MERGER:
                 generated_volume = merger(raw_features, generated_volume)
             else:
                 generated_volume = torch.mean(generated_volume, dim=1)
-            encoder_loss = bce_loss(generated_volume, ground_truth_volume) * 10
+            encoder_loss1 = bce_loss(generated_volume, ground_truth_volume) * 10 
+            encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
+            encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
                 generated_volume = refiner(generated_volume)
