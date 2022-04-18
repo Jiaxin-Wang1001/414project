@@ -35,6 +35,10 @@ class Decoder(torch.nn.Module):
             torch.nn.ConvTranspose3d(8, 1, kernel_size=1, bias=cfg.NETWORK.TCONV_USE_BIAS),
             torch.nn.Sigmoid()
         )
+        
+        self.layerx = torch.nn.MaxPool3d((32,1,1), 1)
+        self.layery = torch.nn.MaxPool3d((1,32,1), 1)
+        self.layerz = torch.nn.MaxPool3d((1,1,32), 1)
 
     def forward(self, image_features):
         image_features = image_features.permute(1, 0, 2, 3, 4).contiguous()
@@ -61,8 +65,14 @@ class Decoder(torch.nn.Module):
             gen_volumes.append(torch.squeeze(gen_volume, dim=1))
             raw_features.append(raw_feature)
 
+            xprojection = torch.squeeze(self.layerx(gen_volume))
+            yprojection = torch.squeeze(self.layery(gen_volume))
+            zprojection = torch.squeeze(self.layerz(gen_volume))
+            projections = [xprojection, yprojection, zprojection]
+        projections = torch.stack(projections, dim=1).contiguous()
+
         gen_volumes = torch.stack(gen_volumes).permute(1, 0, 2, 3, 4).contiguous()
         raw_features = torch.stack(raw_features).permute(1, 0, 2, 3, 4, 5).contiguous()
         # print(gen_volumes.size())      # torch.Size([batch_size, n_views, 32, 32, 32])
         # print(raw_features.size())      # torch.Size([batch_size, n_views, 9, 32, 32, 32])
-        return raw_features, gen_volumes
+        return raw_features, gen_volumes, projections
