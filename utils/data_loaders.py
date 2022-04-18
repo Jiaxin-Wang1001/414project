@@ -145,7 +145,7 @@ class ShapeNetDataLoader:
             # Get file list of rendering images
             img_file_path = self.rendering_image_path_template % (taxonomy_folder_name, sample_name, 0)
             img_folder = os.path.dirname(img_file_path)
-            total_views = len(os.listdir(img_folder))
+            total_views = 1
             rendering_image_indexes = range(total_views)
             rendering_images_file_path = []
             for image_idx in rendering_image_indexes:
