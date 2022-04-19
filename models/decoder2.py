@@ -5,9 +5,9 @@
 import torch
 
 
-class Decoder(torch.nn.Module):
+class Decoder2(torch.nn.Module):
     def __init__(self, cfg):
-        super(Decoder, self).__init__()
+        super(Decoder2, self).__init__()
         self.cfg = cfg
 
         # Layer Definition
