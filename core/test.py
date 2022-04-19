@@ -15,6 +15,7 @@ import utils.helpers
 
 from models.encoder import Encoder
 from models.decoder import Decoder
+from models.decoder2 import Decoder2
 from models.refiner import Refiner
 from models.merger import Merger
 from utils.average_meter import AverageMeter
@@ -60,7 +61,7 @@ def test_net(cfg,
     # Set up networks
     if decoder is None or encoder is None:
         encoder = Encoder(cfg)
-        decoder = Decoder(cfg)
+        decoder = Decoder2(cfg)
         refiner = Refiner(cfg)
         merger = Merger(cfg)
 
