@@ -75,6 +75,7 @@ class Decoder2(torch.nn.Module):
             
 
         projections=torch.squeeze(projections)
+        print("here", projections.shape)
 
         gen_volumes = torch.stack(gen_volumes).permute(1, 0, 2, 3, 4).contiguous()
         raw_features = torch.stack(raw_features).permute(1, 0, 2, 3, 4, 5).contiguous()
