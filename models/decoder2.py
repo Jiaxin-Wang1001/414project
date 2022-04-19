@@ -64,6 +64,8 @@ class Decoder2(torch.nn.Module):
             # print(gen_volume.size())   # torch.Size([batch_size, 32, 16, 16, 16])
             gen_volume = self.layer4(gen_volume)
             raw_feature = gen_volume
+            temp = torch.reshape(raw_feature, (64, 16, 128, 128))
+            projections.append(self.layer6(temp))
             # print(gen_volume.size())   # torch.Size([batch_size, 8, 32, 32, 32])
             gen_volume = self.layer5(gen_volume)
             # print(gen_volume.size())   # torch.Size([batch_size, 1, 32, 32, 32])
@@ -71,7 +73,7 @@ class Decoder2(torch.nn.Module):
             # print(raw_feature.size())  # torch.Size([batch_size, 9, 32, 32, 32])
             gen_volumes.append(torch.squeeze(gen_volume, dim=1))
             raw_features.append(raw_feature)
-            projections.append(self.layer6(raw_feature))
+            
 
             
         projections = torch.stack(projections).contiguous()
