@@ -74,7 +74,7 @@ __C.NETWORK                                 = edict()
 __C.NETWORK.LEAKY_VALUE                     = .2
 __C.NETWORK.TCONV_USE_BIAS                  = False
 __C.NETWORK.USE_REFINER                     = False
-__C.NETWORK.USE_MERGER                      = True
+__C.NETWORK.USE_MERGER                      = False
 
 #
 # Training

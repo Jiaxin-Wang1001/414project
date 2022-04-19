@@ -108,16 +108,18 @@ def test_net(cfg,
 
             # Test the encoder, decoder, refiner and merger
             image_features = encoder(rendering_images)
-            # raw_features, generated_volume, generated_projections = decoder(image_features)
-            raw_features, generated_volume = decoder(image_features)
+            raw_features, generated_volume, generated_projections = decoder(image_features)
 
             if cfg.NETWORK.USE_MERGER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_MERGER:
                 generated_volume = merger(raw_features, generated_volume)
             else:
                 generated_volume = torch.mean(generated_volume, dim=1)
-            encoder_loss = bce_loss(generated_volume, ground_truth_volume) * 10 
-
-            # encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
+            # encoder_loss1 = bce_loss(generated_volume, ground_truth_volume) * 10 
+            # print("+++++++++++++++++++++++++++++++++++++++")
+            # print(generated_projections.shape)
+            # print(projections_images.shape)
+            # print("---------------------------------------")
+            encoder_loss = bce_loss(generated_projections, projections_images) * 30
             # encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
