@@ -115,11 +115,11 @@ def test_net(cfg,
             else:
                 generated_volume = torch.mean(generated_volume, dim=1)
             encoder_loss1 = bce_loss(generated_volume, ground_truth_volume) * 10 
-            print("+++++++++++++++++++++++++++++++++++++++")
-            print(generated_projections.shape)
-            print(projections_images.shape)
-            print("---------------------------------------")
-            encoder_loss2 = bce_loss(generated_projections, projections_images) * 30
+            # print("+++++++++++++++++++++++++++++++++++++++")
+            # print(generated_projections.shape)
+            # print(projections_images.shape)
+            # print("---------------------------------------")
+            encoder_loss2 = bce_loss(generated_projections, projections_images) * 20
             encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
@@ -150,10 +150,10 @@ def test_net(cfg,
             if test_writer and sample_idx < 3:
                 # Volume Visualization
                 rendering_views = utils.helpers.get_volume_views(generated_volume.cpu().numpy())
-                print("lalala", rendering_views.shape)
+                # print("lalala", rendering_views.shape)
                 test_writer.add_images('Model%02d/Reconstructed' % sample_idx, rendering_views, epoch_idx, dataformats="HWC")
                 rendering_views = utils.helpers.get_volume_views(ground_truth_volume.cpu().numpy())
-                print("lalala2", rendering_views.shape)
+                # print("lalala2", rendering_views.shape)
                 test_writer.add_images('Model%02d/GroundTruth' % sample_idx, rendering_views, epoch_idx, dataformats="HWC")
 
             # Print sample loss and IoU
@@ -161,7 +161,7 @@ def test_net(cfg,
             #              (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(),
             #               refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
             logging.info('Test[%d/%d] Taxonomy = %s Sample = %s loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f IoU = %s' %
-                         (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(), encoder_loss1.item(), encoder_loss2.item(),
+                         (sample_idx + 1, n_samples, taxonomy_id, sample_name,  encoder_loss1.item(), encoder_loss2.item(), encoder_loss.item(),
                           refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
     # Output testing results
     mean_iou = []

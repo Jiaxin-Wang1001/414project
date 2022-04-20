@@ -203,12 +203,12 @@ def train_net(cfg):
                 generated_volumes = torch.mean(generated_volumes, dim=1)
 
             encoder_loss1 = bce_loss(generated_volumes, ground_truth_volumes) * 10 
-            print("+++++++++++++++++++++++++++++++++++++++")
-            print(generated_projections.shape)
-            print(projections_images.shape)
-            print("---------------------------------------")
+            # print("+++++++++++++++++++++++++++++++++++++++")
+            # print(generated_projections.shape)
+            # print(projections_images.shape)
+            # print("---------------------------------------")
 
-            encoder_loss2 = bce_loss(generated_projections, projections_images) * 30
+            encoder_loss2 = bce_loss(generated_projections, projections_images) * 20
             encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
