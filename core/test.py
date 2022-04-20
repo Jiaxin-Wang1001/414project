@@ -157,10 +157,12 @@ def test_net(cfg,
                 test_writer.add_images('Model%02d/GroundTruth' % sample_idx, rendering_views, epoch_idx, dataformats="HWC")
 
             # Print sample loss and IoU
-            logging.info('Test[%d/%d] Taxonomy = %s Sample = %s EDLoss = %.4f RLoss = %.4f IoU = %s' %
-                         (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(),
+            # logging.info('Test[%d/%d] Taxonomy = %s Sample = %s EDLoss = %.4f RLoss = %.4f IoU = %s' %
+            #              (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(),
+            #               refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
+            logging.info('Test[%d/%d] Taxonomy = %s Sample = %s loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f IoU = %s' %
+                         (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(), encoder_loss1.item(), encoder_loss2.item(),
                           refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
-
     # Output testing results
     mean_iou = []
     for taxonomy_id in test_iou:

@@ -3,7 +3,7 @@
 # Developed by Haozhe Xie <cshzxie@gmail.com>
 
 import torch
-
+import torch.nn.functional as F
 
 class Decoder2(torch.nn.Module):
     def __init__(self, cfg):
@@ -65,7 +65,7 @@ class Decoder2(torch.nn.Module):
             gen_volume = self.layer4(gen_volume)
             raw_feature = gen_volume
             temp = torch.reshape(raw_feature, (raw_feature.shape[0], 16, 128, 128))
-            projections.append(self.layer6(temp))
+            projections.append(F.threshold(self.layer6(temp), 0.2, 0))
             # print(gen_volume.size())   # torch.Size([batch_size, 8, 32, 32, 32])
             gen_volume = self.layer5(gen_volume)
             # print(gen_volume.size())   # torch.Size([batch_size, 1, 32, 32, 32])
