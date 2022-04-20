@@ -81,7 +81,7 @@ __C.NETWORK.USE_MERGER                      = False
 #
 __C.TRAIN                                   = edict()
 __C.TRAIN.RESUME_TRAIN                      = True
-__C.TRAIN.NUM_EPOCHS                        = 250
+__C.TRAIN.NUM_EPOCHS                        = 100
 __C.TRAIN.BRIGHTNESS                        = .4
 __C.TRAIN.CONTRAST                          = .4
 __C.TRAIN.SATURATION                        = .4
