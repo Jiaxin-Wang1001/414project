@@ -71,7 +71,7 @@ def train_net(cfg):
 
     # Set up networks
     encoder = Encoder(cfg)
-    decoder = Decoder2(cfg)
+    decoder = Decoder(cfg)
     refiner = Refiner(cfg)
     merger = Merger(cfg)
     logging.debug('Parameters in Encoder: %d.' % (utils.helpers.count_parameters(encoder)))
@@ -209,7 +209,12 @@ def train_net(cfg):
             # print("---------------------------------------")
 
             encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
-            encoder_loss = encoder_loss1 + encoder_loss2
+            # encoder_loss = encoder_loss1 + encoder_loss2
+            encoder_loss = encoder_loss1
+            # if encoder_loss1.item() > encoder_loss2.item():
+            #     encoder_loss = encoder_loss1
+            # else:
+            #     encoder_loss = encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
                 generated_volumes = refiner(generated_volumes)

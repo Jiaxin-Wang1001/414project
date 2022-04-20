@@ -61,7 +61,7 @@ def test_net(cfg,
     # Set up networks
     if decoder is None or encoder is None:
         encoder = Encoder(cfg)
-        decoder = Decoder2(cfg)
+        decoder = Decoder(cfg)
         refiner = Refiner(cfg)
         merger = Merger(cfg)
 
@@ -120,7 +120,12 @@ def test_net(cfg,
             # print(projections_images.shape)
             # print("---------------------------------------")
             encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
-            encoder_loss = encoder_loss1 + encoder_loss2
+            # encoder_loss = encoder_loss1 + encoder_loss2
+            encoder_loss = encoder_loss1
+            # if encoder_loss1.item() > encoder_loss2.item():
+            #     encoder_loss = encoder_loss1
+            # else:
+            #     encoder_loss = encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
                 generated_volume = refiner(generated_volume)
