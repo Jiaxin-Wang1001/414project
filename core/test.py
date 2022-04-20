@@ -61,7 +61,7 @@ def test_net(cfg,
     # Set up networks
     if decoder is None or encoder is None:
         encoder = Encoder(cfg)
-        decoder = Decoder2(cfg)
+        decoder = Decoder(cfg)
         refiner = Refiner(cfg)
         merger = Merger(cfg)
 
@@ -114,13 +114,13 @@ def test_net(cfg,
                 generated_volume = merger(raw_features, generated_volume)
             else:
                 generated_volume = torch.mean(generated_volume, dim=1)
-            encoder_loss1 = bce_loss(generated_volume, ground_truth_volume) * 10 
+            # encoder_loss1 = bce_loss(generated_volume, ground_truth_volume) * 10 
             # print("+++++++++++++++++++++++++++++++++++++++")
             # print(generated_projections.shape)
             # print(projections_images.shape)
             # print("---------------------------------------")
-            encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
-            encoder_loss = encoder_loss1 + encoder_loss2
+            encoder_loss = bce_loss(generated_projections, projections_images) * 10
+            # encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
                 generated_volume = refiner(generated_volume)
@@ -157,12 +157,12 @@ def test_net(cfg,
                 test_writer.add_images('Model%02d/GroundTruth' % sample_idx, rendering_views, epoch_idx, dataformats="HWC")
 
             # Print sample loss and IoU
-            # logging.info('Test[%d/%d] Taxonomy = %s Sample = %s EDLoss = %.4f RLoss = %.4f IoU = %s' %
-            #              (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(),
-            #               refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
-            logging.info('Test[%d/%d] Taxonomy = %s Sample = %s loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f IoU = %s' %
-                         (sample_idx + 1, n_samples, taxonomy_id, sample_name,  encoder_loss1.item(), encoder_loss2.item(), encoder_loss.item(),
+            logging.info('Test[%d/%d] Taxonomy = %s Sample = %s EDLoss = %.4f RLoss = %.4f IoU = %s' %
+                         (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(),
                           refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
+            # logging.info('Test[%d/%d] Taxonomy = %s Sample = %s loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f IoU = %s' %
+            #              (sample_idx + 1, n_samples, taxonomy_id, sample_name,  encoder_loss1.item(), encoder_loss2.item(), encoder_loss.item(),
+            #               refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
     # Output testing results
     mean_iou = []
     for taxonomy_id in test_iou:

@@ -3,7 +3,7 @@
 # Developed by Haozhe Xie <cshzxie@gmail.com>
 
 import torch
-
+import torch.nn.functional as F
 
 class Decoder(torch.nn.Module):
     def __init__(self, cfg):
@@ -73,6 +73,7 @@ class Decoder(torch.nn.Module):
             zprojection = torch.squeeze(zprojection, dim=1)
             projections = [xprojection, yprojection, zprojection]
         projections = torch.stack(projections, dim=1).contiguous()
+        projections = F.threshold(projections, 0.2, 0)
 
         gen_volumes = torch.stack(gen_volumes).permute(1, 0, 2, 3, 4).contiguous()
         raw_features = torch.stack(raw_features).permute(1, 0, 2, 3, 4, 5).contiguous()

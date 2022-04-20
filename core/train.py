@@ -71,7 +71,7 @@ def train_net(cfg):
 
     # Set up networks
     encoder = Encoder(cfg)
-    decoder = Decoder2(cfg)
+    decoder = Decoder(cfg)
     refiner = Refiner(cfg)
     merger = Merger(cfg)
     logging.debug('Parameters in Encoder: %d.' % (utils.helpers.count_parameters(encoder)))
@@ -202,14 +202,14 @@ def train_net(cfg):
             else:
                 generated_volumes = torch.mean(generated_volumes, dim=1)
 
-            encoder_loss1 = bce_loss(generated_volumes, ground_truth_volumes) * 10 
+            # encoder_loss1 = bce_loss(generated_volumes, ground_truth_volumes) * 10 
             # print("+++++++++++++++++++++++++++++++++++++++")
             # print(generated_projections.shape)
             # print(projections_images.shape)
             # print("---------------------------------------")
 
-            encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
-            encoder_loss = encoder_loss1 + encoder_loss2
+            encoder_loss = bce_loss(generated_projections, projections_images) * 10
+            # encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
                 generated_volumes = refiner(generated_volumes)
@@ -245,14 +245,14 @@ def train_net(cfg):
             # Tick / tock
             batch_time.update(time() - batch_end_time)
             batch_end_time = time()
-            logging.info(
-                '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f' %
-                (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val, encoder_loss1.item(), encoder_loss2.item(),
-                 encoder_loss.item(), refiner_loss.item()))
             # logging.info(
-            #     '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) EDLoss = %.4f RLoss = %.4f' %
-            #     (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val,
-            #         encoder_loss.item(), refiner_loss.item()))
+            #     '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f' %
+            #     (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val, encoder_loss1.item(), encoder_loss2.item(),
+            #      encoder_loss.item(), refiner_loss.item()))
+            logging.info(
+                '[Epoch %d/%d][Batch %d/%d] BatchTime = %.3f (s) DataTime = %.3f (s) EDLoss = %.4f RLoss = %.4f' %
+                (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, batch_idx + 1, n_batches, batch_time.val, data_time.val,
+                    encoder_loss.item(), refiner_loss.item()))
 
         # Adjust learning rate
         encoder_lr_scheduler.step()
