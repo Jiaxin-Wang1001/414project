@@ -119,7 +119,7 @@ def test_net(cfg,
             # print(generated_projections.shape)
             # print(projections_images.shape)
             # print("---------------------------------------")
-            encoder_loss2 = bce_loss(generated_projections, projections_images) * 20
+            encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
             encoder_loss = encoder_loss1 + encoder_loss2
 
             if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
