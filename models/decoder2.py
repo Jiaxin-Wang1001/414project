@@ -41,8 +41,7 @@ class Decoder2(torch.nn.Module):
         self.layerz = torch.nn.MaxPool3d((1,1,32), 1)
 
         self.layer6 = torch.nn.Sequential(
-            torch.nn.Conv2d(16, 8, kernel_size=2, stride=2, bias=False),
-            torch.nn.Conv2d(8, 3, kernel_size=2, stride=2),
+            torch.nn.Conv2d(16, 3, kernel_size=3, stride=4, bias=False),
             torch.nn.Sigmoid()
         )
 
