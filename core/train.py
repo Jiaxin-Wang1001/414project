@@ -210,7 +210,7 @@ def train_net(cfg):
 
             encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
             # encoder_loss = encoder_loss1 + encoder_loss2
-            if ((epoch_idx % 5) == 7):
+            if ((epoch_idx % 7) == 6 ):
                 encoder_loss = encoder_loss2
             else:
                 encoder_loss = encoder_loss1
