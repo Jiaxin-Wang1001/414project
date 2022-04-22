@@ -161,7 +161,7 @@ def test_net(cfg,
                 # Volume Visualization
                 rendering_views = utils.helpers.get_volume_views(generated_volume.cpu().numpy())
                 # print("lalala", rendering_views.shape)
-                test_writer.add_images('Model%02d/Input' % sample_idx, torch.squeeze(rendering_images), epoch_idx, dataformats="CHW")
+                test_writer.add_images('Model%02d/Input' % sample_idx, torch.squeeze(rendering_images), epoch_idx, dataformats="CWH")
                 test_writer.add_images('Model%02d/Reconstructed' % sample_idx, rendering_views, epoch_idx, dataformats="HWC")
                 rendering_views = utils.helpers.get_volume_views(ground_truth_volume.cpu().numpy())
                 # print("lalala2", rendering_views.shape)
