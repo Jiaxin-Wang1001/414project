@@ -11,7 +11,7 @@
         "taxonomy_name": "aeroplane",
         "test": [
             
-            "6c432109eee42aed3b053f623496d8f5"
+            "2ef20ad4c579812571d03b466c72ce41"
         ],
         "train": [
             
@@ -30,7 +30,7 @@
         "taxonomy_id": "02958343",
         "taxonomy_name": "car",
         "test": [
-            "d43dc96daed9ba0f91bfeeca48a08b93"
+            "9af926de92628532b4c4d954f717d0be"
         ],
         "train": [
         ],
@@ -50,7 +50,7 @@
         "taxonomy_id": "04090263",
         "taxonomy_name": "rifle",
         "test": [
-            "beb75684ec2f965412b38b1d99376c0b"
+            "a8b352220fa53a06a0834a5219dec81f"
         ],
         "train": [
         ],
