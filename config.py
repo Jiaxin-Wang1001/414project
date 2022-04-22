@@ -12,7 +12,7 @@ cfg                                         = __C
 #/content/drive/MyDrive/ShapeNetRendering
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
-__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = './datasets/ShapeNetLite.json'
+__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = './datasets/test.json'
 # __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
 __C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/MyDrive/ShapeNetRendering/%s/%s/rendering/%02d.png'
 # __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
@@ -58,7 +58,7 @@ __C.CONST.N_VIEWS_RENDERING                 = 1         # Dummy property for Pas
 __C.CONST.CROP_IMG_W                        = 128       # Dummy property for Pascal 3D
 __C.CONST.CROP_IMG_H                        = 128       # Dummy property for Pascal 3D
 __C.CONST.NUM_WORKER                        = 4         # number of data workers
-__C.CONST.WEIGHTS                           = "/content/drive/Shareddrives/CMPUT_414_1/414project_1/output/checkpoints/2022-04-21T06:55:25.296036/checkpoint-best.pth"
+__C.CONST.WEIGHTS                           = "/content/drive/Shareddrives/CMPUT_414_1/414project_1/output/checkpoints/2022-04-22T04:47:46.511204/checkpoint-best.pth"
 
 
 #
