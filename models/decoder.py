@@ -73,7 +73,7 @@ class Decoder(torch.nn.Module):
             zprojection = torch.squeeze(zprojection, dim=1)
             projections = [xprojection, yprojection, zprojection]
         projections = torch.stack(projections, dim=1).contiguous()
-        projections = F.threshold(projections, 0.3, 0)
+        # projections = F.threshold(projections, 0.3, 0)
 
         gen_volumes = torch.stack(gen_volumes).permute(1, 0, 2, 3, 4).contiguous()
         # gen_volumes = F.threshold(gen_volumes, 0.3, 0)
