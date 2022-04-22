@@ -62,7 +62,7 @@ def test_net(cfg,
     # Set up networks
     if decoder is None or encoder is None:
         encoder = Encoder(cfg)
-        decoder = Decoder2(cfg)
+        decoder = Decoder(cfg)
         refiner = Refiner(cfg)
         merger = Merger(cfg)
 
@@ -97,7 +97,7 @@ def test_net(cfg,
     decoder.eval()
     refiner.eval()
     merger.eval()
-    test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outcomes/projectionhead")
+    test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outcomes/maxPoolProjection")
 
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
