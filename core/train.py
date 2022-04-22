@@ -202,16 +202,14 @@ def train_net(cfg):
             else:
                 generated_volumes = torch.mean(generated_volumes, dim=1)
 
-            # encoder_loss1 = bce_loss(generated_volumes, ground_truth_volumes) * 10 
-            encoder_loss1= 0
+            encoder_loss1 = bce_loss(generated_volumes, ground_truth_volumes) * 10 
             # print("+++++++++++++++++++++++++++++++++++++++")
             # print(generated_projections.shape)
             # print(projections_images.shape)
             # print("---------------------------------------")
 
             encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
-            encoder_loss1= encoder_loss2
-            encoder_loss = encoder_loss2
+            encoder_loss = encoder_loss1 + encoder_loss2
             # if ((epoch_idx % 6) == 5 ):
             #     encoder_loss = encoder_loss2
             # else:
