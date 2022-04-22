@@ -19,7 +19,8 @@ from models.decoder2 import Decoder2
 from models.refiner import Refiner
 from models.merger import Merger
 from utils.average_meter import AverageMeter
-
+import os
+from tensorboardX import SummaryWriter
 
 def test_net(cfg,
              epoch_idx=-1,
@@ -150,6 +151,9 @@ def test_net(cfg,
                 test_iou[taxonomy_id] = {'n_samples': 0, 'iou': []}
             test_iou[taxonomy_id]['n_samples'] += 1
             test_iou[taxonomy_id]['iou'].append(sample_iou)
+
+            test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outcomes/baseline")
+
 
             # Append generated volumes to TensorBoard
             if test_writer and sample_idx < 3:
