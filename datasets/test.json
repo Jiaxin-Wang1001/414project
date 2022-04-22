@@ -1,0 +1,60 @@
+[
+    {
+        "baseline": {
+            "1-view": 0.513,
+            "2-view": 0.536,
+            "3-view": 0.549,
+            "4-view": 0.556,
+            "5-view": 0.561
+        },
+        "taxonomy_id": "02691156",
+        "taxonomy_name": "aeroplane",
+        "test": [
+            
+            "a9b95631bcbefe9ad225a1c252daae25"
+        ],
+        "train": [
+            
+        ],
+        "val": [
+        ]
+    },
+    {
+        "baseline": {
+            "1-view": 0.798,
+            "2-view": 0.821,
+            "3-view": 0.829,
+            "4-view": 0.833,
+            "5-view": 0.836
+        },
+        "taxonomy_id": "02958343",
+        "taxonomy_name": "car",
+        "test": [
+            "d43dc96daed9ba0f91bfeeca48a08b93"
+        ],
+        "train": [
+        ],
+        "val": [
+            
+        ]
+    },
+
+    {
+        "baseline": {
+            "1-view": 0.544,
+            "2-view": 0.582,
+            "3-view": 0.593,
+            "4-view": 0.595,
+            "5-view": 0.6
+        },
+        "taxonomy_id": "04090263",
+        "taxonomy_name": "rifle",
+        "test": [
+            "beb75684ec2f965412b38b1d99376c0b"
+        ],
+        "train": [
+        ],
+        "val": [
+        ]
+    }
+]

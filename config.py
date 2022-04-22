@@ -58,6 +58,7 @@ __C.CONST.N_VIEWS_RENDERING                 = 1         # Dummy property for Pas
 __C.CONST.CROP_IMG_W                        = 128       # Dummy property for Pascal 3D
 __C.CONST.CROP_IMG_H                        = 128       # Dummy property for Pascal 3D
 __C.CONST.NUM_WORKER                        = 4         # number of data workers
+__C.CONST.WEIGHTS                           = "/content/drive/Shareddrives/CMPUT_414_1/414project_1/output/checkpoints/2022-04-21T06:55:25.296036/checkpoint-best.pth"
 
 
 #
@@ -80,7 +81,7 @@ __C.NETWORK.USE_MERGER                      = False
 # Training
 #
 __C.TRAIN                                   = edict()
-__C.TRAIN.RESUME_TRAIN                      = True
+__C.TRAIN.RESUME_TRAIN                      = False
 __C.TRAIN.NUM_EPOCHS                        = 100
 __C.TRAIN.BRIGHTNESS                        = .4
 __C.TRAIN.CONTRAST                          = .4

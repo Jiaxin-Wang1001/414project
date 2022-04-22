@@ -71,7 +71,7 @@ def train_net(cfg):
 
     # Set up networks
     encoder = Encoder(cfg)
-    decoder = Decoder2(cfg)
+    decoder = Decoder(cfg)
     refiner = Refiner(cfg)
     merger = Merger(cfg)
     logging.debug('Parameters in Encoder: %d.' % (utils.helpers.count_parameters(encoder)))
@@ -209,7 +209,7 @@ def train_net(cfg):
             # print("---------------------------------------")
 
             encoder_loss2 = bce_loss(generated_projections, projections_images) * 10
-            encoder_loss = encoder_loss1 + encoder_loss2
+            encoder_loss = encoder_loss1 
             # if ((epoch_idx % 6) == 5 ):
             #     encoder_loss = encoder_loss2
             # else:
