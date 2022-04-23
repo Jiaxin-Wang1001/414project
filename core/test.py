@@ -97,8 +97,7 @@ def test_net(cfg,
     decoder.eval()
     refiner.eval()
     merger.eval()
-    test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outcomes/maxPoolProjection")
-
+    test_writer = SummaryWriter(os.path.join(cfg.DIR.LOGS, 'test'))
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
         sample_name = sample_name[0]
@@ -213,5 +212,6 @@ def test_net(cfg,
         test_writer.add_scalar('EncoderDecoder/EpochLoss', encoder_losses.avg, epoch_idx)
         test_writer.add_scalar('Refiner/EpochLoss', refiner_losses.avg, epoch_idx)
         test_writer.add_scalar('Refiner/IoU', max_iou, epoch_idx)
+        test_writer.close()
 
     return max_iou
