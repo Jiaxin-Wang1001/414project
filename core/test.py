@@ -97,7 +97,6 @@ def test_net(cfg,
     decoder.eval()
     refiner.eval()
     merger.eval()
-    test_writer = SummaryWriter(os.path.join(cfg.DIR.LOGS, 'test'))
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
         sample_name = sample_name[0]
@@ -209,9 +208,10 @@ def test_net(cfg,
     # Add testing results to TensorBoard
     max_iou = np.max(mean_iou)
     if test_writer is not None:
+        print("writing to test writer\n")
         test_writer.add_scalar('EncoderDecoder/EpochLoss', encoder_losses.avg, epoch_idx)
         test_writer.add_scalar('Refiner/EpochLoss', refiner_losses.avg, epoch_idx)
         test_writer.add_scalar('Refiner/IoU', max_iou, epoch_idx)
-        test_writer.close()
+        print('Refiner/IoU', max_iou, epoch_idx)
 
     return max_iou
