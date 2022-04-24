@@ -159,6 +159,7 @@ def test_net(cfg,
             # Append generated volumes to TensorBoard
             if test_writer and sample_score > 2.5:
                 count += 1
+                print("\n\nplus one", count, "\n\n")
                 # Volume Visualization
                 rendering_views = utils.helpers.get_volume_views(generated_volume.cpu().numpy())
                 # print("lalala", rendering_views.shape)
