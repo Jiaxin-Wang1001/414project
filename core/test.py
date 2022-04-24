@@ -98,6 +98,7 @@ def test_net(cfg,
     refiner.eval()
     merger.eval()
     test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outputsforreport/alternating_out_put")
+    count = 0
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
         sample_name = sample_name[0]
@@ -145,6 +146,7 @@ def test_net(cfg,
                 intersection = torch.sum(_volume.mul(ground_truth_volume)).float()
                 union = torch.sum(torch.ge(_volume.add(ground_truth_volume), 1)).float()
                 sample_iou.append((intersection / union).item())
+            sample_score = sum(sample_iou)
 
             # IoU per taxonomy
             if taxonomy_id not in test_iou:
@@ -155,7 +157,8 @@ def test_net(cfg,
             
 
             # Append generated volumes to TensorBoard
-            if test_writer and sample_idx < 9:
+            if test_writer and count < 3 and sample_score > 2.1:
+                count += 1
                 # Volume Visualization
                 rendering_views = utils.helpers.get_volume_views(generated_volume.cpu().numpy())
                 # print("lalala", rendering_views.shape)
