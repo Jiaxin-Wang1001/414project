@@ -12,8 +12,6 @@
         "test": [
             "9d7e431ebd35cdc2bd46d022fd7d80aa",
             "8ce12b6b3b451b8ad0671652a4c42f7b",
-            "6ad44d7abe7492b7d89ea85a4a66c0f9",
-            "6c432109eee42aed3b053f623496d8f5",
             "a9b95631bcbefe9ad225a1c252daae25"
         ],
         "train": [],
@@ -31,9 +29,7 @@
         "taxonomy_name": "car",
         "test": [
             "b4715a33fe6d1bb7f63ee8a34069b7c5",
-            "d6f754f7ccb42b194fc7cbcbd24e4ddd",
             "8d26c4ebd58fbe678ba7af9f04c27920",
-            "9af926de92628532b4c4d954f717d0be",
             "75ea7a6eadcaa77693c58f0606bf052b"
         ],
         "train": [],
@@ -51,8 +47,6 @@
         "taxonomy_name": "rifle",
         "test": [
             "beb75684ec2f965412b38b1d99376c0b",
-            "f2e592962a9df3de1d27f57617a4976d",
-            "e55bc0a1b57acec4a7dd22c0aa3913f0",
             "f2e592962a9df3de1d27f57617a4976d",
             "e55bc0a1b57acec4a7dd22c0aa3913f0"
         ],
