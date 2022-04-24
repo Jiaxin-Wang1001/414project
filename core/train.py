@@ -54,7 +54,7 @@ def train_net(cfg):
 
     # Set up data loader
     train_dataset_loader = utils.data_loaders.DATASET_LOADER_MAPPING[cfg.DATASET.TRAIN_DATASET](cfg)
-    val_dataset_loader = utils.data_loaders.DATASET_LOADER_MAPPING[cfg.DATASET.TEST_DATASET](cfg)
+    test_dataset_loader = utils.data_loaders.DATASET_LOADER_MAPPING[cfg.DATASET.TEST_DATASET](cfg)
     train_data_loader = torch.utils.data.DataLoader(dataset=train_dataset_loader.get_dataset(
         utils.data_loaders.DatasetType.TRAIN, cfg.CONST.N_VIEWS_RENDERING, train_transforms),
                                                     batch_size=cfg.CONST.BATCH_SIZE,
@@ -62,8 +62,8 @@ def train_net(cfg):
                                                     pin_memory=True,
                                                     shuffle=True,
                                                     drop_last=True)
-    val_data_loader = torch.utils.data.DataLoader(dataset=val_dataset_loader.get_dataset(
-        utils.data_loaders.DatasetType.VAL, cfg.CONST.N_VIEWS_RENDERING, val_transforms),
+    test_data_loader = torch.utils.data.DataLoader(dataset=test_dataset_loader.get_dataset(
+        utils.data_loaders.DatasetType.TEST, cfg.CONST.N_VIEWS_RENDERING, val_transforms),
                                                   batch_size=1,
                                                   num_workers=cfg.CONST.NUM_WORKER,
                                                   pin_memory=True,
@@ -162,7 +162,7 @@ def train_net(cfg):
     cfg.DIR.LOGS = output_dir % 'logs'
     cfg.DIR.CHECKPOINTS = output_dir % 'checkpoints'
     train_writer = SummaryWriter(os.path.join(cfg.DIR.LOGS, 'train'))
-    val_writer = SummaryWriter(os.path.join(cfg.DIR.LOGS, 'test'))
+    test_writer = SummaryWriter(os.path.join(cfg.DIR.LOGS, 'test'))
 
     # Training loop
     for epoch_idx in range(init_epoch, cfg.TRAIN.NUM_EPOCHS):
@@ -286,7 +286,7 @@ def train_net(cfg):
                          (epoch_idx + 2, cfg.TRAIN.NUM_EPOCHS, n_views_rendering))
 
         # Validate the training models
-        iou = test_net(cfg, epoch_idx + 1, val_data_loader, val_writer, encoder, decoder, refiner, merger)
+        iou = test_net(cfg, epoch_idx + 1, test_dataset_loader, test_writer, encoder, decoder, refiner, merger)
 
         # Save weights to file
         if (epoch_idx + 1) % cfg.TRAIN.SAVE_FREQ == 0 or iou > best_iou:
@@ -317,4 +317,4 @@ def train_net(cfg):
 
     # Close SummaryWriter for TensorBoard
     train_writer.close()
-    val_writer.close()
+    test_writer.close()

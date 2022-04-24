@@ -58,7 +58,6 @@ __C.CONST.N_VIEWS_RENDERING                 = 1         # Dummy property for Pas
 __C.CONST.CROP_IMG_W                        = 128       # Dummy property for Pascal 3D
 __C.CONST.CROP_IMG_H                        = 128       # Dummy property for Pascal 3D
 __C.CONST.NUM_WORKER                        = 4         # number of data workers
-__C.CONST.WEIGHTS                           = "/content/drive/Shareddrives/CMPUT_414_1/414project_1/output/checkpoints/2022-04-22T04:47:46.511204/checkpoint-best.pth"
 
 
 #
