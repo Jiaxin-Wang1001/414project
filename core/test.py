@@ -97,6 +97,7 @@ def test_net(cfg,
     decoder.eval()
     refiner.eval()
     merger.eval()
+    test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outputsforreport/base_line_output")
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
         sample_name = sample_name[0]
@@ -151,7 +152,7 @@ def test_net(cfg,
             test_iou[taxonomy_id]['n_samples'] += 1
             test_iou[taxonomy_id]['iou'].append(sample_iou)
 
-            test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outputsforreport/base_line_output")
+            
 
             # Append generated volumes to TensorBoard
             if test_writer and sample_idx < 9:
