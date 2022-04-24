@@ -62,7 +62,7 @@ def test_net(cfg,
     # Set up networks
     if decoder is None or encoder is None:
         encoder = Encoder(cfg)
-        decoder = Decoder2(cfg)
+        decoder = Decoder(cfg)
         refiner = Refiner(cfg)
         merger = Merger(cfg)
 
