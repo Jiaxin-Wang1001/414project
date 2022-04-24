@@ -157,7 +157,7 @@ def test_net(cfg,
             
 
             # Append generated volumes to TensorBoard
-            if test_writer :
+            if test_writer and sample_score < 2.8:
                 count += 1
                 print("\n\nplus one", count, "\n\n")
                 # Volume Visualization
