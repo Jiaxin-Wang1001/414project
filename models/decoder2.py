@@ -47,7 +47,6 @@ class Decoder2(torch.nn.Module):
     def forward(self, image_features):
         image_features = image_features.permute(1, 0, 2, 3, 4).contiguous()
         image_features = torch.split(image_features, 1, dim=0)
-        raw_features = []
         gen_volumes = []
         projections = []
 
@@ -70,10 +69,7 @@ class Decoder2(torch.nn.Module):
             gen_volume = self.layer5(gen_volume)
             # gen_volume = self.layer5(gen_volume)
             # print(gen_volume.size())   # torch.Size([batch_size, 1, 32, 32, 32])
-            raw_feature = torch.cat((raw_feature, gen_volume), dim=1)
-            # print(raw_feature.size())  # torch.Size([batch_size, 9, 32, 32, 32])
             gen_volumes.append(torch.squeeze(gen_volume, dim=1))
-            raw_features.append(raw_feature)
             
 
             
@@ -81,7 +77,5 @@ class Decoder2(torch.nn.Module):
         projections=torch.squeeze(projections,dim=0)
 
         gen_volumes = torch.stack(gen_volumes).permute(1, 0, 2, 3, 4).contiguous()
-        raw_features = torch.stack(raw_features).permute(1, 0, 2, 3, 4, 5).contiguous()
         # print(gen_volumes.size())      # torch.Size([batch_size, n_views, 32, 32, 32])
-        # print(raw_features.size())      # torch.Size([batch_size, n_views, 9, 32, 32, 32])
-        return raw_features, gen_volumes, projections
+        return gen_volumes, projections
