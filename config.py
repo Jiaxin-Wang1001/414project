@@ -18,20 +18,6 @@ __C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/MyDrive/ShapeNetRe
 # __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
 __C.DATASETS.SHAPENET.VOXEL_PATH            = '/content/drive/Shareddrives/CMPUT_414/ShapeNetVox32/%s/%s/model.binvox'
 __C.DATASETS.SHAPENET.PROJECTION_PATH       = '/content/drive/Shareddrives/CMPUT_414/ShapeNetVox32/%s/%s/%01d.png'
-__C.DATASETS.PASCAL3D                       = edict()
-__C.DATASETS.PASCAL3D.TAXONOMY_FILE_PATH    = './datasets/Pascal3D.json'
-__C.DATASETS.PASCAL3D.ANNOTATION_PATH       = '/home/hzxie/Datasets/PASCAL3D/Annotations/%s_imagenet/%s.mat'
-__C.DATASETS.PASCAL3D.RENDERING_PATH        = '/home/hzxie/Datasets/PASCAL3D/Images/%s_imagenet/%s.JPEG'
-__C.DATASETS.PASCAL3D.VOXEL_PATH            = '/home/hzxie/Datasets/PASCAL3D/CAD/%s/%02d.binvox'
-__C.DATASETS.PIX3D                          = edict()
-__C.DATASETS.PIX3D.TAXONOMY_FILE_PATH       = './datasets/Pix3D.json'
-__C.DATASETS.PIX3D.ANNOTATION_PATH          = '/home/hzxie/Datasets/Pix3D/pix3d.json'
-__C.DATASETS.PIX3D.RENDERING_PATH           = '/home/hzxie/Datasets/Pix3D/img/%s/%s.%s'
-__C.DATASETS.PIX3D.VOXEL_PATH               = '/home/hzxie/Datasets/Pix3D/model/%s/%s/%s.binvox'
-__C.DATASETS.THINGS3D                       = edict()
-__C.DATASETS.THINGS3D.TAXONOMY_FILE_PATH    = './datasets/Things3D.json'
-__C.DATASETS.THINGS3D.RENDERING_PATH        = '/home/hzxie/Datasets/Things3D/%s/%s/%s/render_%02d_final.png'
-__C.DATASETS.THINGS3D.VOXEL_PATH            = '/home/hzxie/Datasets/ShapeNet/ShapeNetVox32/%s/%s.binvox'
 
 #
 # Dataset
@@ -41,9 +27,6 @@ __C.DATASET.MEAN                            = [0.5, 0.5, 0.5]
 __C.DATASET.STD                             = [0.5, 0.5, 0.5]
 __C.DATASET.TRAIN_DATASET                   = 'ShapeNet'
 __C.DATASET.TEST_DATASET                    = 'ShapeNet'
-# __C.DATASET.TEST_DATASET                  = 'Pascal3D'
-# __C.DATASET.TEST_DATASET                  = 'Pix3D'
-# __C.DATASET.TEST_DATASET                  = 'Things3D'
 
 #
 # Common
@@ -65,7 +48,6 @@ __C.CONST.NUM_WORKER                        = 4         # number of data workers
 #
 __C.DIR                                     = edict()
 __C.DIR.OUT_PATH                            = './output'
-__C.DIR.RANDOM_BG_PATH                      = '/home/hzxie/Datasets/SUN2012/JPEGImages'
 
 #
 # Network

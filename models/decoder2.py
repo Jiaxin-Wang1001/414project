@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Developed by Haozhe Xie <cshzxie@gmail.com>
+# Originaly developed by Haozhe Xie <cshzxie@gmail.com>
+# Modified by Jiaxin Wang, Senyu Li, Tianying Xia
 
 import torch
 import torch.nn.functional as F

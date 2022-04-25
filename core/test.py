@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Developed by Haozhe Xie <cshzxie@gmail.com>
+# Originaly developed by Haozhe Xie <cshzxie@gmail.com>
+# Modified by Jiaxin Wang, Senyu Li, Tianying Xia
 
 import json
 import numpy as np
@@ -16,8 +15,6 @@ import utils.helpers
 from models.encoder import Encoder
 from models.decoder import Decoder
 from models.decoder2 import Decoder2
-from models.refiner import Refiner
-from models.merger import Merger
 from utils.average_meter import AverageMeter
 import os
 from tensorboardX import SummaryWriter
@@ -27,9 +24,7 @@ def test_net(cfg,
              test_data_loader=None,
              test_writer=None,
              encoder=None,
-             decoder=None,
-             refiner=None,
-             merger=None):
+             decoder=None):
     # Enable the inbuilt cudnn auto-tuner to find the best algorithm to use
     torch.backends.cudnn.benchmark = True
 
@@ -63,25 +58,18 @@ def test_net(cfg,
     if decoder is None or encoder is None:
         encoder = Encoder(cfg)
         decoder = Decoder(cfg)
-        refiner = Refiner(cfg)
-        merger = Merger(cfg)
+
 
         if torch.cuda.is_available():
             encoder = torch.nn.DataParallel(encoder).cuda()
             decoder = torch.nn.DataParallel(decoder).cuda()
-            refiner = torch.nn.DataParallel(refiner).cuda()
-            merger = torch.nn.DataParallel(merger).cuda()
+
 
         logging.info('Loading weights from %s ...' % (cfg.CONST.WEIGHTS))
         checkpoint = torch.load(cfg.CONST.WEIGHTS)
         epoch_idx = checkpoint['epoch_idx']
         encoder.load_state_dict(checkpoint['encoder_state_dict'])
         decoder.load_state_dict(checkpoint['decoder_state_dict'])
-
-        if cfg.NETWORK.USE_REFINER:
-            refiner.load_state_dict(checkpoint['refiner_state_dict'])
-        if cfg.NETWORK.USE_MERGER:
-            merger.load_state_dict(checkpoint['merger_state_dict'])
 
     # Set up loss functions
     bce_loss = torch.nn.BCELoss()
@@ -90,13 +78,11 @@ def test_net(cfg,
     n_samples = len(test_data_loader)
     test_iou = dict()
     encoder_losses = AverageMeter()
-    refiner_losses = AverageMeter()
 
     # Switch models to evaluation mode
     encoder.eval()
     decoder.eval()
-    refiner.eval()
-    merger.eval()
+
     # test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outputsforreport/two_headed_out_put")
     count = 0
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
@@ -108,14 +94,11 @@ def test_net(cfg,
             rendering_images = utils.helpers.var_or_cuda(rendering_images)
             ground_truth_volume = utils.helpers.var_or_cuda(ground_truth_volume)
             projections_images = utils.helpers.var_or_cuda(projections_images)
-            # Test the encoder, decoder, refiner and merger
+            # Test the encoder, decoder
             image_features = encoder(rendering_images)
-            raw_features, generated_volume, generated_projections = decoder(image_features)
+            generated_volume, generated_projections = decoder(image_features)
 
-            if cfg.NETWORK.USE_MERGER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_MERGER:
-                generated_volume = merger(raw_features, generated_volume)
-            else:
-                generated_volume = torch.mean(generated_volume, dim=1)
+            generated_volume = torch.mean(generated_volume, dim=1)
             encoder_loss1 = bce_loss(generated_volume, ground_truth_volume) * 10 
             # print("+++++++++++++++++++++++++++++++++++++++")
             # print(generated_projections.shape)
@@ -129,15 +112,9 @@ def test_net(cfg,
             # else:
             #     encoder_loss = encoder_loss2
 
-            if cfg.NETWORK.USE_REFINER and epoch_idx >= cfg.TRAIN.EPOCH_START_USE_REFINER:
-                generated_volume = refiner(generated_volume)
-                refiner_loss = bce_loss(generated_volume, ground_truth_volume) * 10
-            else:
-                refiner_loss = encoder_loss
 
             # Append loss and accuracy to average metrics
             encoder_losses.update(encoder_loss.item())
-            refiner_losses.update(refiner_loss.item())
 
             # IoU per sample
             sample_iou = []
@@ -173,9 +150,9 @@ def test_net(cfg,
             # logging.info('Test[%d/%d] Taxonomy = %s Sample = %s EDLoss = %.4f RLoss = %.4f IoU = %s' %
             #              (sample_idx + 1, n_samples, taxonomy_id, sample_name, encoder_loss.item(),
             #               refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
-            logging.info('Test[%d/%d] Taxonomy = %s Sample = %s loss1 = %.4f loss2 = %.4f EDLoss = %.4f RLoss = %.4f IoU = %s' %
+            logging.info('Test[%d/%d] Taxonomy = %s Sample = %s loss1 = %.4f loss2 = %.4f EDLoss = %.4f IoU = %s' %
                         (sample_idx + 1, n_samples, taxonomy_id, sample_name,  encoder_loss1.item(), encoder_loss2.item(), encoder_loss.item(),
-                        refiner_loss.item(), ['%.4f' % si for si in sample_iou]))
+                         ['%.4f' % si for si in sample_iou]))
     # Output testing results
     mean_iou = []
     for taxonomy_id in test_iou:
@@ -212,10 +189,7 @@ def test_net(cfg,
     # Add testing results to TensorBoard
     max_iou = np.max(mean_iou)
     if test_writer is not None:
-        print("writing to test writer\n")
         test_writer.add_scalar('EncoderDecoder/EpochLoss', encoder_losses.avg, epoch_idx)
-        test_writer.add_scalar('Refiner/EpochLoss', refiner_losses.avg, epoch_idx)
-        test_writer.add_scalar('Refiner/IoU', max_iou, epoch_idx)
-        print('Refiner/IoU', max_iou, epoch_idx)
+        test_writer.add_scalar('Decoder/IoU', max_iou, epoch_idx)
 
     return max_iou
