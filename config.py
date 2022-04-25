@@ -13,9 +13,7 @@ cfg                                         = __C
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
 __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = '/content/drive/Shareddrives/CMPUT_414_1/414project_1/datasets/ShapeNetLite.json'
-# __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
 __C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/MyDrive/ShapeNetRendering/%s/%s/rendering/%02d.png'
-# __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
 __C.DATASETS.SHAPENET.VOXEL_PATH            = '/content/drive/Shareddrives/CMPUT_414/ShapeNetVox32/%s/%s/model.binvox'
 __C.DATASETS.SHAPENET.PROJECTION_PATH       = '/content/drive/Shareddrives/CMPUT_414/ShapeNetVox32/%s/%s/%01d.png'
 
