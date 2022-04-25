@@ -58,7 +58,7 @@ def train_net(cfg):
                                                     shuffle=True,
                                                     drop_last=True)
     test_data_loader = torch.utils.data.DataLoader(dataset=test_dataset_loader.get_dataset(
-        utils.data_loaders.DatasetType.TEST, cfg.CONST.N_VIEWS_RENDERING, val_transforms),
+        utils.data_loaders.DatasetType.VAL, cfg.CONST.N_VIEWS_RENDERING, val_transforms),
                                                   batch_size=1,
                                                   num_workers=cfg.CONST.NUM_WORKER,
                                                   pin_memory=True,
