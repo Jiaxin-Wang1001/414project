@@ -66,7 +66,7 @@ def train_net(cfg):
 
     # Set up networks
     encoder = Encoder(cfg)
-    decoder = Decoder2(cfg)
+    decoder = Decoder(cfg)
     logging.debug('Parameters in Encoder: %d.' % (utils.helpers.count_parameters(encoder)))
     logging.debug('Parameters in Decoder: %d.' % (utils.helpers.count_parameters(decoder)))
 
