@@ -12,7 +12,7 @@ cfg                                         = __C
 #/content/drive/MyDrive/ShapeNetRendering
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
-__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = '/content/drive/Shareddrives/CMPUT_414_1/414project_1/datasets/test.json'
+__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = '/content/drive/Shareddrives/CMPUT_414_1/414project_1/datasets/ShapeNetLite.json'
 # __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
 __C.DATASETS.SHAPENET.RENDERING_PATH        = '/content/drive/MyDrive/ShapeNetRendering/%s/%s/rendering/%02d.png'
 # __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
