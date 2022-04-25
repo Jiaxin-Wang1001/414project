@@ -74,6 +74,7 @@ def test_net(cfg,
     bce_loss = torch.nn.BCELoss()
 
     # Testing loop
+    print("here",type(test_data_loader))
     n_samples = len(test_data_loader)
     test_iou = dict()
     encoder_losses = AverageMeter()
