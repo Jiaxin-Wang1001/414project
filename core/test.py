@@ -74,7 +74,6 @@ def test_net(cfg,
     bce_loss = torch.nn.BCELoss()
 
     # Testing loop
-    print("here",type(test_data_loader))
     n_samples = len(test_data_loader)
     test_iou = dict()
     encoder_losses = AverageMeter()
@@ -123,7 +122,6 @@ def test_net(cfg,
                 intersection = torch.sum(_volume.mul(ground_truth_volume)).float()
                 union = torch.sum(torch.ge(_volume.add(ground_truth_volume), 1)).float()
                 sample_iou.append((intersection / union).item())
-            sample_score = sum(sample_iou)
 
             # IoU per taxonomy
             if taxonomy_id not in test_iou:
@@ -134,7 +132,7 @@ def test_net(cfg,
             
 
             # Append generated volumes to TensorBoard
-            if test_writer:
+            if test_writer and sample_idx < 3:
                 count += 1
                 print("\n\nplus one", count, "\n\n")
                 # Volume Visualization

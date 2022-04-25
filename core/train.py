@@ -146,7 +146,6 @@ def train_net(cfg):
 
         batch_end_time = time()
         n_batches = len(train_data_loader)
-        print("here",type(train_data_loader))
         for batch_idx, (taxonomy_names, sample_names, rendering_images,
                         ground_truth_volumes, projections_images) in enumerate(train_data_loader):
             # Measure data time
