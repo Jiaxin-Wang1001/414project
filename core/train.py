@@ -139,7 +139,6 @@ def train_net(cfg):
         batch_time = AverageMeter()
         data_time = AverageMeter()
         encoder_losses = AverageMeter()
-        refiner_losses = AverageMeter()
 
         # switch models to training mode
         encoder.train()
@@ -147,6 +146,7 @@ def train_net(cfg):
 
         batch_end_time = time()
         n_batches = len(train_data_loader)
+        print("here",type(train_data_loader))
         for batch_idx, (taxonomy_names, sample_names, rendering_images,
                         ground_truth_volumes, projections_images) in enumerate(train_data_loader):
             # Measure data time
@@ -206,13 +206,11 @@ def train_net(cfg):
 
         # Append epoch loss to TensorBoard
         train_writer.add_scalar('EncoderDecoder/EpochLoss', encoder_losses.avg, epoch_idx + 1)
-        train_writer.add_scalar('Refiner/EpochLoss', refiner_losses.avg, epoch_idx + 1)
 
         # Tick / tock
         epoch_end_time = time()
-        logging.info('[Epoch %d/%d] EpochTime = %.3f (s) EDLoss = %.4f RLoss = %.4f' %
-                     (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, epoch_end_time - epoch_start_time, encoder_losses.avg,
-                      refiner_losses.avg))
+        logging.info('[Epoch %d/%d] EpochTime = %.3f (s) EDLoss = %.4f' %
+                     (epoch_idx + 1, cfg.TRAIN.NUM_EPOCHS, epoch_end_time - epoch_start_time, encoder_losses.avg))
 
         # Update Rendering Views
         if cfg.TRAIN.UPDATE_N_VIEWS_RENDERING:

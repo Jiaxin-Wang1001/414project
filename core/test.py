@@ -1,5 +1,4 @@
-# Originaly developed by Haozhe Xie <cshzxie@gmail.com>
-# Modified by Jiaxin Wang, Senyu Li, Tianying Xia
+  
 
 import json
 import numpy as np
