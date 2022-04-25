@@ -220,7 +220,7 @@ def train_net(cfg):
                          (epoch_idx + 2, cfg.TRAIN.NUM_EPOCHS, n_views_rendering))
 
         # Validate the training models
-        iou = test_net(cfg, epoch_idx + 1, test_dataset_loader, test_writer, encoder, decoder)
+        iou = test_net(cfg, epoch_idx + 1, test_data_loader, test_writer, encoder, decoder)
 
         # Save weights to file
         if (epoch_idx + 1) % cfg.TRAIN.SAVE_FREQ == 0 or iou > best_iou:
