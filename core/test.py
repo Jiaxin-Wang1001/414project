@@ -83,7 +83,6 @@ def test_net(cfg,
     decoder.eval()
 
     # test_writer = SummaryWriter("/content/drive/Shareddrives/CMPUT_414_1/414project_1/outputsforreport/two_headed_out_put")
-    count = 0
     for sample_idx, (taxonomy_id, sample_name, rendering_images, ground_truth_volume, projections_images) in enumerate(test_data_loader):
         taxonomy_id = taxonomy_id[0] if isinstance(taxonomy_id[0], str) else taxonomy_id[0].item()
         sample_name = sample_name[0]
@@ -133,8 +132,6 @@ def test_net(cfg,
 
             # Append generated volumes to TensorBoard
             if test_writer and sample_idx < 3:
-                count += 1
-                print("\n\nplus one", count, "\n\n")
                 # Volume Visualization
                 rendering_views = utils.helpers.get_volume_views(generated_volume.cpu().numpy())
                 # print("lalala", rendering_views.shape)
